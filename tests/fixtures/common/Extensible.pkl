@@ -1,0 +1,10 @@
+module Provider
+
+abstract class Provider {
+  name: String
+  model: String
+}
+
+class ProviderA extends Provider {}
+
+class ProviderB extends Provider {}

@@ -39,14 +39,16 @@ function gatherTypeDeclarationsOrdered(
     if (isAnnotationClass(decl) || isBuiltinClass(decl))
       result
     else
-      // Mark as visited first (cycle detection), then gather deps, then add to ordered list
+      // Mark as visited first (cycle detection), gather property/super deps,
+      // then add self to ordered BEFORE gathering module classes/aliases.
+      // This ensures parent classes appear before their children in the output.
       let (visiting = new GatherResult { ordered = result.ordered; visited = result.visited.add(decl) })
       let (afterProps = gatherPropertiesDeclarationsOrdered(decl, visiting))
       let (afterSuper = gatherSuperDeclarationsOrdered(decl, afterProps))
-      let (afterClasses = gatherModuleClassesOrdered(decl, afterSuper))
+      let (withSelf = new GatherResult { ordered = afterSuper.ordered.add(decl); visited = afterSuper.visited })
+      let (afterClasses = gatherModuleClassesOrdered(decl, withSelf))
       let (afterAliases = gatherModuleTypeAliasesOrdered(decl, afterClasses))
-      let (afterModule = gatherModuleOrdered(decl, afterAliases))
-        new GatherResult { ordered = afterModule.ordered.add(decl); visited = afterModule.visited }
+        gatherModuleOrdered(decl, afterAliases)
   else if (decl is reflect.TypeAlias)
     let (visiting = new GatherResult { ordered = result.ordered; visited = result.visited.add(decl) })
     let (afterArgs = gatherTypeArgumentsOrdered(decl, visiting))

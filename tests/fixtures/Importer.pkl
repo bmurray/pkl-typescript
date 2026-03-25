@@ -1,0 +1,7 @@
+module Importer
+
+import "./common/Extensible.pkl"
+
+x: String
+
+y: Extensible.Provider
