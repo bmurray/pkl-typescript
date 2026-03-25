@@ -1,0 +1,94 @@
+/// A microservice configuration that imports from multiple levels.
+module tests.fixtures.ServiceConfig
+
+import "common/Types.pkl"
+import "common/Auth.pkl"
+
+/// Health check configuration.
+class HealthCheck {
+  path: String
+  interval_seconds: Int(isBetween(5, 300))
+  timeout_seconds: Int(isBetween(1, 60))
+  healthy_threshold: Int(isBetween(1, 10))
+  unhealthy_threshold: Int(isBetween(1, 10))
+}
+
+/// Retry policy for service calls.
+class RetryPolicy {
+  max_retries: Int(isBetween(0, 10))
+  initial_delay_ms: Int(isBetween(100, 30000))
+  max_delay_ms: Int(isBetween(1000, 300000))
+  backoff_multiplier: Float(isBetween(1.0, 5.0))
+}
+
+/// A downstream service dependency.
+class ServiceDependency {
+  name: String
+  base_url: String(matches(Regex(#"^https?://.+"#)))
+  timeout: Duration
+  retry_policy: RetryPolicy?
+  api_key: Auth.ApiKey?
+}
+
+/// Rate limiting configuration.
+class RateLimiting {
+  requests_per_second: Int(isBetween(1, 100000))
+  burst_size: Int(isBetween(1, 10000))
+  /// Per-client or global.
+  scope: "per_client" | "global"
+}
+
+/// Logging configuration.
+class LogConfig {
+  level: "trace" | "debug" | "info" | "warn" | "error" | "fatal"
+  format: "json" | "text" | "logfmt"
+  /// Whether to include stack traces.
+  include_stacktrace: Boolean
+  /// Fields to redact from logs.
+  redact_fields: List<String>
+}
+
+/// TLS configuration.
+class TlsConfig {
+  cert_path: String
+  key_path: String
+  ca_path: String?
+  min_version: "1.2" | "1.3"
+}
+
+/// Full microservice configuration.
+class ServiceConfig {
+  /// Service name.
+  name: String(matches(Regex(#"^[a-z][a-z0-9-]*$"#)))
+  /// Service version (semver).
+  version: String(matches(Regex(#"^\d+\.\d+\.\d+$"#)))
+  /// Port to listen on.
+  port: Types.Port
+  /// Environment.
+  environment: "development" | "staging" | "production"
+  /// The service owner's email.
+  owner_email: Types.Email
+  /// Service location.
+  region: String
+  /// Service address.
+  address: Types.Address?
+  /// Authentication config.
+  auth: Auth.AuthConfig
+  /// Health check settings.
+  health_check: HealthCheck
+  /// Downstream dependencies.
+  dependencies: Mapping<String, ServiceDependency>
+  /// Rate limiting.
+  rate_limiting: RateLimiting?
+  /// Logging configuration.
+  logging: LogConfig
+  /// TLS settings (optional, for HTTPS).
+  tls: TlsConfig?
+  /// Metadata tags.
+  tags: Mapping<String, String>
+  /// Feature flags.
+  feature_flags: Mapping<String, Boolean>
+  /// Resource limits.
+  cpu_limit: Float(isBetween(0.1, 64.0))
+  memory_limit_mb: Int(isBetween(64, 65536))
+}

@@ -1,0 +1,56 @@
+/// Authentication and authorization types.
+module tests.fixtures.common.Auth
+
+import "Types.pkl"
+
+/// A user role in the system.
+typealias Role = "admin" | "editor" | "viewer" | "guest"
+
+/// A UUID string.
+typealias UUID = String(matches(Regex(#"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"#)))
+
+/// JWT token string.
+typealias JwtToken = String(length >= 10)
+
+/// A user in the system.
+class User {
+  id: UUID
+  email: Types.Email
+  displayName: String(length.isBetween(1, 100))
+  role: Role
+  avatar_url: String?
+  created_at: Types.DateString
+  last_login: Types.DateString?
+}
+
+/// An API key for service authentication.
+class ApiKey {
+  key: String(length.isBetween(32, 64))
+  name: String
+  permissions: List<String>
+  rate_limit: UInt16(isBetween(1, 10000))
+  expires_at: Types.DateString?
+}
+
+/// Authentication configuration.
+class AuthConfig {
+  /// Supported auth providers.
+  providers: List<AuthProvider>
+  /// Session timeout in minutes.
+  session_timeout_minutes: Int(isBetween(1, 1440))
+  /// Max failed login attempts before lockout.
+  max_login_attempts: Int(isBetween(1, 20))
+  /// Whether MFA is required.
+  require_mfa: Boolean
+}
+
+/// An authentication provider.
+class AuthProvider {
+  name: String
+  type: AuthProviderType
+  client_id: String
+  enabled: Boolean
+}
+
+/// Type of auth provider.
+typealias AuthProviderType = "oauth2" | "saml" | "oidc" | "ldap"

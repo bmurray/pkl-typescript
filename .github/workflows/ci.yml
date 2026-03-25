@@ -17,40 +17,40 @@ jobs:
         with:
           pkl-version: "0.31.0"
 
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install TypeScript and Zod
+        run: bun add -d typescript zod
+
       - name: Verify package builds
         run: pkl project package . --output-path out/
 
       - name: Generate TypeScript from test fixtures
         run: |
-          pkl run gen.pkl --project-dir . -- tests/fixtures/AppConfig.pkl --output-path test-output
+          pkl run gen.pkl --project-dir . -- \
+            tests/fixtures/AppConfig.pkl \
+            tests/fixtures/common/Types.pkl \
+            tests/fixtures/common/Auth.pkl \
+            tests/fixtures/ServiceConfig.pkl \
+            --output-path test-output
 
       - name: Generate Zod schemas from test fixtures
         run: |
-          pkl run zod/gen.pkl --project-dir . -- tests/fixtures/AppConfig.pkl --output-path test-output
+          pkl run zod/gen.pkl --project-dir . -- \
+            tests/fixtures/AppConfig.pkl \
+            tests/fixtures/common/Types.pkl \
+            tests/fixtures/common/Auth.pkl \
+            tests/fixtures/ServiceConfig.pkl \
+            --output-path test-output
 
-      - name: Install Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install TypeScript and Zod
-        run: |
-          cd test-output
-          bun init -y
-          bun add -d typescript zod
-
-      - name: Verify generated TypeScript compiles
-        run: |
-          cd test-output
-          bunx tsc --noEmit --strict --target es2020 --moduleResolution bundler --ignoreConfig appConfig.pkl.ts
-
-      - name: Verify generated Zod schemas compile
-        run: |
-          cd test-output
-          bunx tsc --noEmit --strict --target es2020 --moduleResolution bundler --ignoreConfig appConfig.schema.ts
+      - name: Verify generated code compiles
+        run: bunx tsc --noEmit --strict --target es2020 --moduleResolution bundler --ignoreConfig test-output/*.ts
 
       - name: Show generated output
         run: |
-          echo "=== TypeScript ==="
-          cat test-output/appConfig.pkl.ts
-          echo ""
-          echo "=== Zod ==="
-          cat test-output/appConfig.schema.ts
+          for f in test-output/*.ts; do
+            echo "=== $(basename $f) ==="
+            cat "$f"
+            echo ""
+          done

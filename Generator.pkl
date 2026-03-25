@@ -47,15 +47,32 @@ function gatherEnums(decl: List<reflect.TypeDeclaration>): List<TsMapping> =
     )
 
 /// Gather classes.
+///
+/// If the module companion class would produce the same name as an inner class,
+/// the companion class is skipped (the inner class takes precedence).
 function gatherClasses(decl: List<reflect.TypeDeclaration>): Mixin<List<TsMapping>> = (acc) ->
-  decl
-    .filter((it) -> it is reflect.Class)
-    .fold(acc, (accum, it) ->
-      accum.add(new TsMapping.Class {
-        source = it
-        seenMappings = accum
-      })
-    )
+  let (
+    // Detect name conflicts between module companion class and inner classes
+    companionConflicts =
+      decl
+        .filter((it) -> it is reflect.Class && it.enclosingDeclaration.moduleClass == it)
+        .filter((companion) ->
+          decl.any((other) ->
+            other is reflect.Class
+              && other != companion
+              && other.enclosingDeclaration.moduleClass != other
+              && utils.toTsTypeName(other) == utils.toTsTypeName(companion)
+          )
+        )
+  )
+    decl
+      .filter((it) -> it is reflect.Class && !companionConflicts.contains(it))
+      .fold(acc, (accum, it) ->
+        accum.add(new TsMapping.Class {
+          source = it
+          seenMappings = accum
+        })
+      )
 
 local allMappings: List<TsMapping> =
   let (clazz = reflect.Module(moduleToGenerate).moduleClass)

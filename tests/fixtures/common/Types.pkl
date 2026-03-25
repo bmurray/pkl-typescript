@@ -1,0 +1,45 @@
+/// Common shared types used across the application.
+module tests.fixtures.common.Types
+
+/// ISO 8601 date string.
+typealias DateString = String(matches(Regex(#"\d{4}-\d{2}-\d{2}"#)))
+
+/// Email address.
+typealias Email = String(matches(Regex(#"^[^@\s]+@[^@\s]+\.[^@\s]+$"#)))
+
+/// A percentage value between 0 and 100.
+typealias Percentage = Float(isBetween(0.0, 100.0))
+
+/// A TCP/UDP port number.
+typealias Port = UInt16(isBetween(1, 65535))
+
+/// HTTP status codes.
+typealias StatusCode = "ok" | "error" | "pending" | "timeout"
+
+/// A geographic coordinate.
+class GeoPoint {
+  /// Latitude in degrees.
+  latitude: Float(isBetween(-90.0, 90.0))
+
+  /// Longitude in degrees.
+  longitude: Float(isBetween(-180.0, 180.0))
+}
+
+/// An address.
+class Address {
+  street: String
+  city: String
+  state: String(length.isBetween(2, 2))
+  zip: String(matches(Regex(#"^\d{5}(-\d{4})?$"#)))
+  country: String = "US"
+  location: GeoPoint?
+}
+
+/// A time range with start and end.
+class TimeRange {
+  start: DateString
+  end: DateString
+}
+
+/// Priority levels.
+typealias Priority = "critical" | "high" | "medium" | "low"
