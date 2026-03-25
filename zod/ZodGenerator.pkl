@@ -79,8 +79,34 @@ local allMappings: List<TsMapping> =
 
 local moduleMirror = reflect.Module(moduleToGenerate)
 
+/// Mappings for types declared in this module.
+local localMappings: List<TsMapping> =
+  allMappings.filter((it) -> utils.isLocalDeclaration(it.source, moduleMirror))
+
+/// Mappings for types from imported modules.
+local externalMappings: List<TsMapping> =
+  allMappings.filter((it) -> !utils.isLocalDeclaration(it.source, moduleMirror))
+
+/// Generate import statements for external types (both Schema and type).
+local importStatements: String =
+  let (
+    byModule = externalMappings.groupBy((it) -> it.source.enclosingDeclaration.uri)
+  )
+    if (byModule.isEmpty)
+      ""
+    else
+      byModule
+        .mapValues((_uri, mappings: List<TsMapping>) ->
+          let (moduleName = mappings.first.source.enclosingDeclaration.name)
+          let (fileStem = utils.moduleFileNameStem(moduleName))
+          let (names = mappings.flatMap((m) -> List("\(m.name)Schema", m.name)).distinct.sort())
+            "import { \(names.join(", ")) } from \"./\(fileStem).schema\";"
+        )
+        .values
+        .join("\n")
+
 local generated: List<String> =
-  allMappings.map((it) ->
+  localMappings.map((it) ->
     if (it is TsMapping.Class)
       new ZodClassGen {
         mappings = allMappings
@@ -102,6 +128,10 @@ local fileContents: String =
     utils.renderHeaderComment(moduleMirror)
     ""
     "import { z } from \"zod\";"
+    when (!importStatements.isEmpty) {
+      ""
+      importStatements
+    }
     ""
     for (gen in generated) {
       gen

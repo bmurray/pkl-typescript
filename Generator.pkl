@@ -52,7 +52,6 @@ function gatherEnums(decl: List<reflect.TypeDeclaration>): List<TsMapping> =
 /// the companion class is skipped (the inner class takes precedence).
 function gatherClasses(decl: List<reflect.TypeDeclaration>): Mixin<List<TsMapping>> = (acc) ->
   let (
-    // Detect name conflicts between module companion class and inner classes
     companionConflicts =
       decl
         .filter((it) -> it is reflect.Class && it.enclosingDeclaration.moduleClass == it)
@@ -81,14 +80,41 @@ local allMappings: List<TsMapping> =
 
 local moduleMirror = reflect.Module(moduleToGenerate)
 
+/// Mappings for types declared in this module.
+local localMappings: List<TsMapping> =
+  allMappings.filter((it) -> utils.isLocalDeclaration(it.source, moduleMirror))
+
+/// Mappings for types from imported modules.
+local externalMappings: List<TsMapping> =
+  allMappings.filter((it) -> !utils.isLocalDeclaration(it.source, moduleMirror))
+
+/// Group external mappings by their source module to generate import statements.
+local importStatements: String =
+  let (
+    // Group external types by source module URI
+    byModule = externalMappings.groupBy((it) -> it.source.enclosingDeclaration.uri)
+  )
+    if (byModule.isEmpty)
+      ""
+    else
+      byModule
+        .mapValues((_uri, mappings: List<TsMapping>) ->
+          let (moduleName = mappings.first.source.enclosingDeclaration.name)
+          let (fileStem = utils.moduleFileNameStem(moduleName))
+          let (names = mappings.map((m) -> m.name).distinct.sort())
+            "import type { \(names.join(", ")) } from \"./\(fileStem).pkl\";"
+        )
+        .values
+        .join("\n")
+
 local function hasUniqueNames(): Boolean =
-  let (names = allMappings.map((it) -> it.name))
+  let (names = localMappings.map((it) -> it.name))
     if (names.isDistinct)
       true
     else
       let (
         duplicateNames =
-          allMappings.filter((it) -> allMappings.count((m) -> m.name == it.name) > 1)
+          localMappings.filter((it) -> localMappings.count((m) -> m.name == it.name) > 1)
       )
         throw(
           """
@@ -106,7 +132,7 @@ local function hasUniqueNames(): Boolean =
         )
 
 local generated: List<Gen>(hasUniqueNames()) =
-  allMappings.map((it) ->
+  localMappings.map((it) ->
     if (it is TsMapping.Class)
       new ClassGen {
         mappings = allMappings
@@ -127,6 +153,10 @@ local fileContents: String =
   new Listing {
     utils.renderHeaderComment(moduleMirror)
     ""
+    when (!importStatements.isEmpty) {
+      importStatements
+      ""
+    }
     for (gen in generated) {
       gen.contents
     }

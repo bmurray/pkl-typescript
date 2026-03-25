@@ -181,3 +181,14 @@ function renderImports(imports: List<Pair<String, String>>): String =
 /// Escape a string for use as a TypeScript string literal.
 function toTsString(str: String): String =
   "\"" + str.replaceAll("\\", "\\\\").replaceAll("\"", "\\\"").replaceAll("\n", "\\n") + "\""
+
+/// Derive the output filename stem from a Pkl module name.
+///
+/// E.g. `tests.fixtures.common.Auth` → `auth`
+function moduleFileNameStem(moduleName: String): String =
+  let (lastPart = moduleName.split(".").last)
+    lastPart[0].toLowerCase() + lastPart.drop(1)
+
+/// Check if a type declaration belongs to a given module.
+function isLocalDeclaration(decl: reflect.TypeDeclaration, `module`: reflect.Module): Boolean =
+  decl.enclosingDeclaration.uri == `module`.uri
