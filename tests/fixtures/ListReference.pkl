@@ -1,0 +1,32 @@
+module AbstractUnion
+import "../../ts.pkl"
+
+@ts.Union { discriminator = "type" }
+abstract class Base {
+  fixed type: "typeA" | "typeB"
+}
+
+class TypeA extends Base {
+  fixed type: "typeA"
+  something: String
+}
+class TypeB extends Base {
+  fixed type: "typeB"
+  something: String
+}
+
+@ts.Union { discriminator = "type" }
+abstract class OtherBase {
+  fixed type: "typeC" | "typeD"
+}
+
+class TypeC extends OtherBase {
+  fixed type: "typeC"
+  something: String
+}
+
+class TypeD extends OtherBase {
+  fixed type: "typeD"
+  something: String
+  list: List<Base>
+}
