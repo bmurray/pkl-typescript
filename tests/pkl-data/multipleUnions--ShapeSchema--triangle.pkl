@@ -1,0 +1,12 @@
+module multipleUnionsShapeSchemaTriangle
+
+import "../fixtures/MultipleUnions.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new MultipleUnions.Triangle {
+    kind = "triangle"
+    base = 10.0
+    height = 7.5
+  }
+}

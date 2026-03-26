@@ -1,0 +1,11 @@
+module mixedUnionsOptionalUnionsSchemaAllNull
+
+import "../fixtures/MixedUnions.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new MixedUnions.OptionalUnions {
+    status = null
+    priority = null
+  }
+}

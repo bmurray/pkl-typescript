@@ -1,0 +1,12 @@
+module mixedUnionsTaskConfigSchemaAllEnums
+
+import "../fixtures/MixedUnions.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new MixedUnions.TaskConfig {
+    status = "active"
+    priority = "critical"
+    label = "only"
+  }
+}

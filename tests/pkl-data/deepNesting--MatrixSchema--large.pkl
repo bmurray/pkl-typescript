@@ -1,0 +1,25 @@
+module deepNestingMatrixSchemaLarge
+
+import "../fixtures/DeepNesting.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new DeepNesting.Matrix {
+    rows = List(
+      List(1.0, 0.0, 0.0, 0.0),
+      List(0.0, 1.0, 0.0, 0.0),
+      List(0.0, 0.0, 1.0, 0.0),
+      List(0.0, 0.0, 0.0, 1.0)
+    )
+    labels = Map(
+      "row0", List("identity", "first"),
+      "row1", List("identity", "second"),
+      "row2", List("identity", "third"),
+      "row3", List("identity", "fourth")
+    )
+    tagIndex = Map(
+      "math", Map("linear-algebra", 1, "matrix", 2),
+      "cs", Map("graphics", 3, "transforms", 4)
+    )
+  }
+}

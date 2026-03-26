@@ -1,0 +1,15 @@
+module nameOverridesUserProfileSchemaRenamed
+
+/// Note: Pkl serializes using original field names (user_name, email_addr).
+/// The @ts.Name annotation only affects the generated TS/Zod output.
+/// The Zod schema expects the *renamed* field names, so we output
+/// the JSON manually to match what the Zod schema expects.
+
+output {
+  renderer = new JsonRenderer {}
+  value = new Dynamic {
+    id = 42
+    displayName = "alice_wonderland"
+    emailAddress = "alice@example.com"
+  }
+}

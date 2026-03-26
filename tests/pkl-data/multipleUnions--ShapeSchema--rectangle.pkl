@@ -1,0 +1,12 @@
+module multipleUnionsShapeSchemaRectangle
+
+import "../fixtures/MultipleUnions.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new MultipleUnions.Rectangle {
+    kind = "rectangle"
+    width = 100.0
+    height = 50.5
+  }
+}

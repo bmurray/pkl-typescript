@@ -1,0 +1,11 @@
+module mixedUnionsInlineUnionsSchemaDirections
+
+import "../fixtures/MixedUnions.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new MixedUnions.InlineUnions {
+    direction = "west"
+    flag = false
+  }
+}

@@ -1,0 +1,14 @@
+module nullableEverythingDeepNullableSchemaPresent
+
+import "../fixtures/NullableEverything.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new NullableEverything.DeepNullable {
+    data = Map(
+      "group1", List("a", null, "c"),
+      "group2", List(null, null),
+      "group3", List("x", "y", "z")
+    )
+  }
+}

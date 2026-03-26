@@ -1,0 +1,13 @@
+module deepNestingNullableCollectionsSchemaAllNull
+
+import "../fixtures/DeepNesting.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new DeepNesting.NullableCollections {
+    maybeList = null
+    maybeMap = null
+    listOfNullable = List()
+    deepOptional = null
+  }
+}

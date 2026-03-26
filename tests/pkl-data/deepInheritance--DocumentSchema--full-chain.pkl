@@ -1,0 +1,17 @@
+module deepInheritanceDocumentSchemaFullChain
+
+import "../fixtures/DeepInheritance.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new DeepInheritance.Document {
+    id = "doc-001"
+    createdAt = "2026-01-15T08:00:00Z"
+    updatedAt = "2026-03-20T14:30:00Z"
+    createdBy = "alice"
+    updatedBy = "bob"
+    title = "Architecture Decision Record #42"
+    content = "We decided to use Pkl for configuration management because..."
+    version = 3
+  }
+}

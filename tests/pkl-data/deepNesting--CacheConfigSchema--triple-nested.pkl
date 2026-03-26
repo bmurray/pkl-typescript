@@ -1,0 +1,24 @@
+module deepNestingCacheConfigSchemaTripleNested
+
+import "../fixtures/DeepNesting.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new DeepNesting.CacheConfig {
+    regionCache = Map(
+      "us-east-1", Map(
+        "api-gateway", Map("session-token", "abc123", "rate-limit-key", "rl-456"),
+        "auth-service", Map("jwt-secret", "s3cret", "refresh-token", "ref-789")
+      ),
+      "eu-west-1", Map(
+        "api-gateway", Map("session-token", "def456")
+      ),
+      "ap-southeast-1", Map()
+    )
+    priorityQueues = List(
+      List(List(1, 2, 3), List(4, 5), List(6)),
+      List(List(10, 20), List(30, 40, 50)),
+      List(List(), List(100))
+    )
+  }
+}

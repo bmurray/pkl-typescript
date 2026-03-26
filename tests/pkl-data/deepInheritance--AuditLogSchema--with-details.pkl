@@ -1,0 +1,16 @@
+module deepInheritanceAuditLogSchemaWithDetails
+
+import "../fixtures/DeepInheritance.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new DeepInheritance.AuditLog {
+    id = "log-999"
+    createdAt = "2026-03-26T10:00:00Z"
+    updatedAt = "2026-03-26T10:00:00Z"
+    createdBy = "system"
+    updatedBy = "system"
+    action = "user.role.changed"
+    details = Map("userId", "u-123", "oldRole", "viewer", "newRole", "admin", "reason", "promotion")
+  }
+}

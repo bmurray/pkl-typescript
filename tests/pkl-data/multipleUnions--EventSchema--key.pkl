@@ -1,0 +1,13 @@
+module multipleUnionsEventSchemaKey
+
+import "../fixtures/MultipleUnions.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new MultipleUnions.KeyEvent {
+    eventType = "key"
+    timestamp = "2026-03-26T10:30:00Z"
+    keyCode = 13
+    modifiers = List("shift", "ctrl", "alt")
+  }
+}

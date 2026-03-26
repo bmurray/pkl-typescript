@@ -1,0 +1,11 @@
+module multipleUnionsShapeSchemaCircle
+
+import "../fixtures/MultipleUnions.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new MultipleUnions.Circle {
+    kind = "circle"
+    radius = 12.5
+  }
+}

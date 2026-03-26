@@ -1,0 +1,15 @@
+module nullableEverythingAllOptionalSchemaAllNull
+
+import "../fixtures/NullableEverything.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new NullableEverything.AllOptional {
+    name = null
+    age = null
+    active = null
+    score = null
+    tags = null
+    metadata = null
+  }
+}

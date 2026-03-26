@@ -1,0 +1,33 @@
+module keywordCollisionsConfigSchemaAllKeywords
+
+import "../fixtures/KeywordCollisions.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new KeywordCollisions.Config {
+    `default` = "defaultValue"
+    `delete` = true
+    `function` = 42
+    `import` = "myModule"
+    `export` = false
+    `class` = "MyClass"
+    `extends` = 7
+    `implements` = "MyInterface"
+    `interface` = true
+    `package` = "com.example.app"
+    `private` = 0
+    `protected` = "internal"
+    `public` = true
+    `static` = "constant"
+    `yield` = 99
+    `enum` = "Color"
+    `const` = false
+    `let` = "x"
+    `var` = 123
+    `type` = "alias"
+    `readonly` = true
+    `abstract` = "Base"
+    `declare` = 1
+    `module` = "main"
+  }
+}

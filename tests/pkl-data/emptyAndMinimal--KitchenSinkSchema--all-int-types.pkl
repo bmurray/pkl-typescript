@@ -1,0 +1,20 @@
+module emptyAndMinimalKitchenSinkSchemaAllIntTypes
+
+import "../fixtures/EmptyAndMinimal.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new EmptyAndMinimal.KitchenSink {
+    aString = "hello world"
+    anInt = -2147483648
+    aFloat = 3.141592653589793
+    aBool = true
+    anInt8 = -128
+    anInt16 = -32768
+    anInt32 = -2147483648
+    aUint = 0
+    aUint8 = 255
+    aUint16 = 65535
+    aUint32 = 4294967295
+  }
+}

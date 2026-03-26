@@ -1,0 +1,13 @@
+module deepNestingNullableCollectionsSchemaMixed
+
+import "../fixtures/DeepNesting.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new DeepNesting.NullableCollections {
+    maybeList = List(10, 20, 30)
+    maybeMap = Map("enabled", true, "verbose", false)
+    listOfNullable = List("first", null, "third", null, "fifth")
+    deepOptional = Map("scores", List(100, null, 85, null, 92))
+  }
+}

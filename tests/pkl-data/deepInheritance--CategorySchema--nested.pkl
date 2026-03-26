@@ -1,0 +1,12 @@
+module deepInheritanceCategorySchemaNested
+
+import "../fixtures/DeepInheritance.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new DeepInheritance.Category {
+    name = "Backend Services"
+    description = "All backend microservices and their configurations"
+    parent = "Engineering"
+  }
+}

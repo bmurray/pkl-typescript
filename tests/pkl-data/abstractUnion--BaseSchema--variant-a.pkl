@@ -1,0 +1,12 @@
+module abstractUnionBaseSchemaVariantA
+
+import "../fixtures/AbstractUnion.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new AbstractUnion.A {
+    type = "A"
+    something = "hello"
+    valueA = "world"
+  }
+}

@@ -1,0 +1,15 @@
+module collectionVariantsListVariantsSchemaAll
+
+import "../fixtures/CollectionVariants.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new CollectionVariants.ListVariants {
+    strings = List("alpha", "beta", "gamma", "delta")
+    ints = List(1, 2, 3, 4, 5, 100, -50)
+    bools = List(true, false, true, true, false)
+    floats = List(3.14, 2.718, 1.414, 0.0, -99.9)
+    nested = List(List("a", "b"), List("c", "d", "e"), List())
+    empty = List()
+  }
+}

@@ -1,0 +1,12 @@
+module nullableEverythingNullableElementsSchemaMixedNulls
+
+import "../fixtures/NullableEverything.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new NullableEverything.NullableElements {
+    names = List("Alice", null, "Charlie", null, null, "Frank")
+    scores = Map("math", 100, "english", null, "science", 85, "art", null)
+    mixedList = List(true, null, false, null, true)
+  }
+}

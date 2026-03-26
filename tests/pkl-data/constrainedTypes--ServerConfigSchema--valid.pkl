@@ -1,0 +1,17 @@
+module constrainedTypesServerConfigSchemaValid
+
+import "../fixtures/ConstrainedTypes.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new ConstrainedTypes.ServerConfig {
+    host = "10.0.1.100"
+    port = 8443
+    id = "550e8400-e29b-41d4-a716-446655440000"
+    healthPercent = 99.9
+    name = "primary-api"
+    theme = "#1a2b3c"
+    maxConnections = 500
+    adminEmail = "ops@example.com"
+  }
+}

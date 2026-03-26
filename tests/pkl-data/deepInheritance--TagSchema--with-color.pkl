@@ -1,0 +1,11 @@
+module deepInheritanceTagSchemaWithColor
+
+import "../fixtures/DeepInheritance.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new DeepInheritance.Tag {
+    name = "critical-bug"
+    color = "#ff0000"
+  }
+}

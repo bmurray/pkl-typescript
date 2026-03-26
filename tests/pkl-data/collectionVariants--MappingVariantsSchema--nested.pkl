@@ -1,0 +1,30 @@
+module collectionVariantsMappingVariantsSchemaNested
+
+import "../fixtures/CollectionVariants.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new CollectionVariants.MappingVariants {
+    config {
+      ["database_url"] = "postgres://localhost/mydb"
+      ["redis_url"] = "redis://localhost:6379"
+      ["api_key"] = "sk-abc123"
+    }
+    counts {
+      ["requests"] = 15000
+      ["errors"] = 42
+      ["warnings"] = 200
+    }
+    nested {
+      ["feature_flags"] {
+        ["dark_mode"] = true
+        ["new_checkout"] = false
+        ["beta_api"] = true
+      }
+      ["permissions"] {
+        ["can_delete"] = false
+        ["can_edit"] = true
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+module nullableEverythingAllOptionalSchemaAllPresent
+
+import "../fixtures/NullableEverything.pkl"
+
+output {
+  renderer = new JsonRenderer {}
+  value = new NullableEverything.AllOptional {
+    name = "Test User"
+    age = 42
+    active = true
+    score = 99.5
+    tags = List("admin", "beta-tester", "early-adopter")
+    metadata = Map("theme", "dark", "lang", "en", "timezone", "UTC")
+  }
+}
