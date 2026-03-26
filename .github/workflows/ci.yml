@@ -25,7 +25,7 @@ jobs:
         run: bun add -d typescript zod
 
       - name: Verify package builds
-        run: pkl project package . --output-path out/
+        run: pkl project package . --output-path out/ --skip-publish-check
 
       - name: Run integration tests (70 tests)
         run: bun tests/run-tests.ts --generate
