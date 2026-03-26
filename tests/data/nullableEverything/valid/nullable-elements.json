@@ -1,0 +1,5 @@
+{
+  "names": ["Alice", null, "Bob"],
+  "scores": { "math": 100, "english": null },
+  "mixedList": [true, null, false]
+}

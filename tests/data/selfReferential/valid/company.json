@@ -1,0 +1,5 @@
+{
+  "name": "Acme",
+  "headquarters": { "street": "1 Main", "city": "Town", "zip": "00000" },
+  "branches": []
+}

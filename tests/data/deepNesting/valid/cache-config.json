@@ -1,0 +1,7 @@
+{
+  "regionCache": {
+    "us-east": { "api-service": { "session-key": "abc123" } },
+    "eu-west": { "web-service": { "token": "xyz789" } }
+  },
+  "priorityQueues": [[[1, 2], [3]], [[4, 5]]]
+}

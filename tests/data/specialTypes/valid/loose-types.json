@@ -1,0 +1,5 @@
+{
+  "anything": { "deeply": { "nested": [1, "two", true] } },
+  "flexible": { "key1": "value", "key2": 42, "key3": null },
+  "optionalAny": null
+}

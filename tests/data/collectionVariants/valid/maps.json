@@ -1,0 +1,6 @@
+{
+  "stringToString": { "a": "alpha", "b": "beta" },
+  "stringToInt": { "x": 1, "y": 2 },
+  "stringToList": { "fruits": ["apple", "banana"] },
+  "intToString": { "1": "one", "2": "two" }
+}

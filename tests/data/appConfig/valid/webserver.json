@@ -1,0 +1,6 @@
+{
+  "hostname": "localhost",
+  "environment": "development",
+  "port": 8080,
+  "sslEnabled": true
+}

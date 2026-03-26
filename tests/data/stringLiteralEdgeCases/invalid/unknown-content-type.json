@@ -1,0 +1,6 @@
+{
+  "method": "GET",
+  "contentType": "application/xml",
+  "format": "camelCase",
+  "apiVersion": "v1"
+}

@@ -1,0 +1,6 @@
+{
+  "method": "TRACE",
+  "contentType": "application/json",
+  "format": "camelCase",
+  "apiVersion": "v1"
+}

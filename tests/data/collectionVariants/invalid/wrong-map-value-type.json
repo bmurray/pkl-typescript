@@ -1,0 +1,6 @@
+{
+  "stringToString": { "a": 123 },
+  "stringToInt": { "x": 1 },
+  "stringToList": { "f": [] },
+  "intToString": { "1": "one" }
+}

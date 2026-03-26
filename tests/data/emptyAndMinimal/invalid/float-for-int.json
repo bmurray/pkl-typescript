@@ -1,0 +1,8 @@
+{
+  "aString": "hello",
+  "anInt": 3.14,
+  "aFloat": 1.0,
+  "aBool": true,
+  "anInt8": 1, "anInt16": 1, "anInt32": 1,
+  "aUint": 1, "aUint8": 1, "aUint16": 1, "aUint32": 1
+}

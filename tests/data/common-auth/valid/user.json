@@ -1,0 +1,9 @@
+{
+  "id": "user-123",
+  "email": "alice@example.com",
+  "displayName": "Alice Johnson",
+  "role": "admin",
+  "avatarUrl": null,
+  "createdAt": "2026-01-01",
+  "lastLogin": null
+}

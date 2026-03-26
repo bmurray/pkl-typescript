@@ -1,0 +1,6 @@
+{
+  "method": "OPTIONS",
+  "contentType": "multipart/form-data",
+  "format": "SCREAMING_SNAKE",
+  "apiVersion": "v3"
+}

@@ -1,0 +1,6 @@
+{
+  "maybeList": [1, 2, 3],
+  "maybeMap": { "a": true },
+  "listOfNullable": ["hello", null, "world"],
+  "deepOptional": { "key": [1, null, 3] }
+}

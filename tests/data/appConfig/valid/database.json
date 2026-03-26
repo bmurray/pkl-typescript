@@ -1,0 +1,5 @@
+{
+  "connectionUrl": "postgres://localhost:5432/mydb",
+  "maxPoolSize": 10,
+  "timeout": { "value": 30, "unit": "s" }
+}

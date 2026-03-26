@@ -1,0 +1,10 @@
+{
+  "id": "doc-1",
+  "createdAt": "2026-01-01",
+  "updatedAt": "2026-01-02",
+  "createdBy": "alice",
+  "updatedBy": "bob",
+  "title": "My Doc",
+  "content": "Hello world",
+  "version": 1
+}

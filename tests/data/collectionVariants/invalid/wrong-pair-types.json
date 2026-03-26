@@ -1,0 +1,6 @@
+{
+  "stringPair": [1, 2],
+  "intPair": [1, 2],
+  "mixedPair": ["name", 42],
+  "nestedPair": ["key", [1]]
+}

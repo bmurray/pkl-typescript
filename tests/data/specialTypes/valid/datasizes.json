@@ -1,0 +1,5 @@
+{
+  "maxUpload": { "value": 100, "unit": "mb" },
+  "diskQuota": { "value": 1, "unit": "tb" },
+  "bufferSize": { "value": 4096, "unit": "b" }
+}

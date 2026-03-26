@@ -1,0 +1,35 @@
+{
+  "name": "api-gateway",
+  "version": "2.1.0",
+  "port": 8443,
+  "environment": "production",
+  "ownerEmail": "team@example.com",
+  "region": "us-east-1",
+  "address": null,
+  "auth": {
+    "providers": [],
+    "sessionTimeoutMinutes": 60,
+    "maxLoginAttempts": 5,
+    "requireMfa": false
+  },
+  "healthCheck": {
+    "path": "/health",
+    "intervalSeconds": 30,
+    "timeoutSeconds": 5,
+    "healthyThreshold": 3,
+    "unhealthyThreshold": 2
+  },
+  "dependencies": {},
+  "rateLimiting": null,
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "includeStacktrace": false,
+    "redactFields": ["password", "token"]
+  },
+  "tls": null,
+  "tags": {},
+  "featureFlags": {},
+  "cpuLimit": 2.0,
+  "memoryLimitMb": 512
+}

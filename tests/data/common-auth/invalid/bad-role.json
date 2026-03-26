@@ -1,0 +1,7 @@
+{
+  "id": "user-1",
+  "email": "alice@example.com",
+  "displayName": "Alice",
+  "role": "superadmin",
+  "createdAt": "2026-01-01"
+}

@@ -1,0 +1,5 @@
+{
+  "timeout": { "value": 30, "unit": "s" },
+  "interval": { "value": 5, "unit": "min" },
+  "maxRetry": null
+}

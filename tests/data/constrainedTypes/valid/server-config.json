@@ -1,0 +1,10 @@
+{
+  "host": "192.168.1.1",
+  "port": 8080,
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "healthPercent": 99.5,
+  "name": "api-server",
+  "theme": "#ff5733",
+  "maxConnections": 100,
+  "adminEmail": "admin@example.com"
+}

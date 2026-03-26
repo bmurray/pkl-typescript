@@ -1,0 +1,5 @@
+{
+  "stringKeyed": { "a": 1, "b": 2 },
+  "intKeyed": { "1": "one", "2": "two" },
+  "intToList": { "1": ["a", "b"], "2": ["c"] }
+}

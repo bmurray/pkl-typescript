@@ -1,0 +1,5 @@
+{
+  "rows": [["not", "numbers"], [3.0]],
+  "labels": { "row1": ["a"] },
+  "tagIndex": { "g": { "t": 1 } }
+}

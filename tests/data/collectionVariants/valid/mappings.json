@@ -1,0 +1,5 @@
+{
+  "config": { "key1": "val1" },
+  "counts": { "a": 1, "b": 2 },
+  "nested": { "group": { "flag": true } }
+}

@@ -1,0 +1,10 @@
+{
+  "host": 12345,
+  "port": "not-a-number",
+  "id": true,
+  "healthPercent": "high",
+  "name": 42,
+  "theme": false,
+  "maxConnections": "many",
+  "adminEmail": null
+}

@@ -1,0 +1,4 @@
+{
+  "regionCache": "not-nested",
+  "priorityQueues": [1, 2, 3]
+}

@@ -1,0 +1,8 @@
+{
+  "strings": ["a", "b", "c"],
+  "ints": [1, 2, 3],
+  "bools": [true, false],
+  "floats": [1.1, 2.2],
+  "nested": [["a", "b"], ["c"]],
+  "empty": []
+}

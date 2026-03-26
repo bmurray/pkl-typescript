@@ -1,0 +1,7 @@
+{
+  "key": "sk-1234567890abcdef",
+  "name": "production-key",
+  "permissions": ["read", "write"],
+  "rateLimit": 1000,
+  "expiresAt": "2027-01-01"
+}

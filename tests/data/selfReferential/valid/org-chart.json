@@ -1,0 +1,22 @@
+{
+  "company": {
+    "name": "Acme Corp",
+    "headquarters": { "street": "123 Main St", "city": "Springfield", "zip": "12345" },
+    "branches": [
+      { "street": "456 Oak Ave", "city": "Shelbyville", "zip": "67890" }
+    ]
+  },
+  "employees": [
+    {
+      "name": "Alice",
+      "company": {
+        "name": "Acme Corp",
+        "headquarters": { "street": "123 Main St", "city": "Springfield", "zip": "12345" },
+        "branches": []
+      },
+      "homeAddress": { "street": "789 Elm St", "city": "Springfield", "zip": "12345" },
+      "title": "Engineer"
+    }
+  ],
+  "mainOffice": { "street": "123 Main St", "city": "Springfield", "zip": "12345" }
+}
