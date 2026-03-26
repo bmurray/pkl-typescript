@@ -122,7 +122,11 @@ function getAllFields(clazz: reflect.Class, mappings: List<TsMapping>): Map<Stri
         getAllFields(clazz.superclass!!, mappings)
   )
     superFields + clazz.properties
-      .filter((_, prop: reflect.Property) -> !prop.modifiers.contains("hidden"))
+      .filter((_, prop: reflect.Property) ->
+        !prop.modifiers.contains("hidden")
+          // Skip value-only overrides (UnknownType) so the inherited type is preserved
+          && !(prop.type is reflect.UnknownType)
+      )
       .mapValues((_, prop: reflect.Property) -> new ZodField {
         name = utils.toTsPropertyName(prop)
         zodType = zodtypegen.generateZodType(prop.type, clazz, mappings)
