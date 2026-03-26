@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_call:
 
 jobs:
   test:
@@ -26,34 +27,15 @@ jobs:
       - name: Verify package builds
         run: pkl project package . --output-path out/
 
-      - name: Generate TypeScript (auto-discovers imports)
-        run: |
-          pkl run gen.pkl --project-dir . -- \
-            tests/fixtures/ServiceConfig.pkl \
-            tests/fixtures/Importer.pkl \
-            tests/fixtures/AppConfig.pkl \
-            --output-path test-output/ts
+      - name: Run integration tests (70 tests)
+        run: bun tests/run-tests.ts --generate
 
-      - name: Generate Zod schemas (auto-discovers imports)
-        run: |
-          pkl run zod/gen.pkl --project-dir . -- \
-            tests/fixtures/ServiceConfig.pkl \
-            tests/fixtures/Importer.pkl \
-            tests/fixtures/AppConfig.pkl \
-            --output-path test-output/zod
+      - name: Run data-driven JSON tests (110 tests)
+        run: bun tests/run-data-tests.ts
 
-      - name: Verify generated code compiles
-        run: |
-          bunx tsc --noEmit --strict --target es2020 --moduleResolution bundler --ignoreConfig \
-            test-output/ts/*.ts test-output/ts/**/*.ts \
-            test-output/zod/*.ts test-output/zod/**/*.ts
-
-      - name: Verify Zod schemas execute (catches ordering issues)
-        run: |
-          find test-output/zod -name '*.schema.ts' | sort | while read f; do
-            echo "Running $f..."
-            bun "$f"
-          done
+      - name: Run Pkl round-trip tests (30 tests)
+        run: bun tests/run-pkl-data-tests.ts
 
       - name: Show generated output
+        if: always()
         run: find test-output -name '*.ts' | sort | while read f; do echo "=== $f ==="; cat "$f"; echo; done
